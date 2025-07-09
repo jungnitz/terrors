@@ -221,3 +221,9 @@ where
         E::EnumRef::from(&self)
     }
 }
+
+impl<E: TypeSet> From<OneOf<E>> for Box<dyn Any> {
+    fn from(value: OneOf<E>) -> Self {
+        value.value
+    }
+}
