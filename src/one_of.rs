@@ -220,10 +220,14 @@ where
     {
         E::EnumRef::from(&self)
     }
-}
 
-impl<E: TypeSet> From<OneOf<E>> for Box<dyn Any> {
-    fn from(value: OneOf<E>) -> Self {
-        value.value
+    /// Get a type-erased reference to the contained value.
+    pub fn as_any(&self) -> &dyn Any {
+        self.value.deref()
+    }
+
+    /// Get a type-erased [Box] with the contained value.
+    pub fn to_any(self) -> Box<dyn Any> {
+        self.value
     }
 }
